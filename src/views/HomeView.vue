@@ -37,7 +37,8 @@ export default {
   methods: {
     addTask() {
       console.log('task', this.tasks)
-      this.$store.dispatch({ type: 'addTask', task: this.task })
+      
+      // this.$store.dispatch({ type: 'addTask', task: this.task })
     }
 
   },
