@@ -1,5 +1,28 @@
 <template>
-  <pre>{{ tasks }}</pre>
+  <!-- <pre>{{ tasks }}</pre> -->
+  <table v-if="tasks" >
+    <thead>
+      <tr>
+        <th>createdAt</th>
+        <th>description</th>
+        <th>title</th>
+        <th>importance</th>
+        <th>status</th>
+        <th>doneAt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(task) in tasks" :key="task">
+        <td>{{task.createdAt}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.title}}</td>
+        <td>{{task.importance}}</td>
+        <td>{{task.status}}</td>
+        <td>{{task.doneAt}}</td>
+        <td class="actions-btn"><span class="edit-btn">Edit</span><span class="delete-btn">Delete</span></td>
+      </tr>
+    </tbody>
+  </table>
   <h1>helloo</h1>
   <h1>add task</h1>
   <form @submit.prevent="addTask">
@@ -48,5 +71,6 @@ export default {
   unmounted() { },
 };
 </script>
+
  <style>
  </style>
