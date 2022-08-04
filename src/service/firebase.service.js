@@ -45,13 +45,8 @@ async function query(collectionName) {
 
 async function post(collectionName, task) {
   // Add a new document with a generated id.
-  const docRef = await addDoc(collection(db, collectionName), {
-    title: '',
-    description: '',
-    importance: 3,
-    createdAt: new Date(),
-    doneAt: null,
-    status: 'new',
-  })
+  const docRef = await addDoc(collection(db, collectionName),
+   task
+  )
   console.log('Document written with ID: ', docRef.id)
 }

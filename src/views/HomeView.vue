@@ -23,7 +23,7 @@ export default {
         title: "",
         description: "",
         importance: null,
-        createdAt: new Date(),
+        // createdAt: new Date(),
         doneAt: null,
         status: "",
       },
@@ -35,9 +35,11 @@ export default {
     console.log('this.tasks', this.tasks)
   },
   methods: {
-    addTask() {
+    async addTask() {
+      await taskService.addTask(this.task)
       console.log('task', this.tasks)
-      
+      // clearTask
+       this.tasks = await taskService.query()
       // this.$store.dispatch({ type: 'addTask', task: this.task })
     }
 
