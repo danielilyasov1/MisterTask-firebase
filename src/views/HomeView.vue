@@ -19,7 +19,7 @@
         <td>{{task.importance}}</td>
         <td>{{task.status}}</td>
         <td>{{task.doneAt}}</td>
-        <td class="actions-btn"><span class="edit-btn">Edit</span><span class="delete-btn">Delete</span></td>
+        <td class="actions-btn"><button @click="editTask(task)" class="edit-btn">Edit</button><button @click="removeTask(task._id)" class="delete-btn">Delete</button></td>
       </tr>
     </tbody>
   </table>
@@ -35,6 +35,7 @@
   </form>
 </template>
  <script>
+import { async } from '@firebase/util';
 import { taskService } from '../service/task.service.js'
 export default {
 
@@ -46,7 +47,7 @@ export default {
         title: "",
         description: "",
         importance: null,
-        // createdAt: new Date(),
+        createdAt: new Date(),
         doneAt: null,
         status: "",
       },
@@ -61,9 +62,31 @@ export default {
     async addTask() {
       await taskService.addTask(this.task)
       console.log('task', this.tasks)
-      // clearTask
+     
        this.tasks = await taskService.query()
+      clearTask()
       // this.$store.dispatch({ type: 'addTask', task: this.task })
+    },
+
+    async removeTask(taskId){
+      await taskService.removeTask(taskId) 
+      this.tasks = await taskService.query()
+    },
+
+      async editTask(task){
+      await taskService.save(task) 
+      this.tasks = await taskService.query()
+    },
+
+    clearTask(){
+      this.task=
+      { title: "",
+        description: "",
+        importance: null,
+        createdAt: null,
+        doneAt: null,
+        status: "",
+      }
     }
 
   },
