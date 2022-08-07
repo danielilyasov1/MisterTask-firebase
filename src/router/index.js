@@ -1,5 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import taskApp from '../views/task-app.vue';
+import taskDetails from '../views/task-details.vue';
+import taskEdit from '../views/task-edit.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,14 +9,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: taskApp,
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: 
-    // }
-  ]
-})
+    {
+      path: '/task/edit/:taskId?',
+      component: taskEdit,
+    },
+    {
+      path: '/task/:taskId',
+      component: taskDetails,
+    },
+  ],
+});
 
-export default router
+export default router;

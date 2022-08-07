@@ -2,23 +2,36 @@ import { firebaseService } from './firebase.service.js'
 
 export const taskService = {
   query,
-  addTask,
-  removeTask,
-  save
+  getById: getTaskById,
+  save: saveTask,
+  remove: removeTask,
+  getEmptyTask,
 }
 
-const collection = 'task'
 
-async function query() {
-  return firebaseService.query(collection)
+async function query(filterBy = {}) {
+  return firebaseService.queryData(filterBy)
 }
-function addTask(task) {
-  return firebaseService.post(collection, task)
+
+async function getTaskById(taskId) {
+  return firebaseService.getEntityById(taskId)
 }
-function removeTask(taskId) {
-    return firebaseService.remove(collection, taskId)
-}  
-function save(task) {
-    if (task.id) return firebaseService.put(collection, task)
-    else return firebaseService.post(collection, task)
+
+async function saveTask(task) {
+  return firebaseService.saveEntity(task)
+}
+
+async function removeTask(taskId) {
+  return firebaseService.removeEntity(taskId)
+}
+
+function getEmptyTask() {
+  return {
+    title: '',
+    description: '',
+    importance: 1,
+    createdAt: Date.now() + '',
+    doneAt: null,
+    status: ''
+  }
 }
